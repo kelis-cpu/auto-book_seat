@@ -7,10 +7,10 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.header import Header
 import time
-url1="http://125.219.33.206/api.php/login"
+url1="http://xxxxxxxx/api.php/login"#图书馆服务器地址
 data1={
-"username":"1811010039",
-"password":"c6f057b86584942e415435ffb1fa93d4",
+"username":"xxxxxxx",
+"password":"xxxxxxx",
 "from":"mobile"
     }
 header={
@@ -18,14 +18,14 @@ header={
     }
 def send_msg(msg):###发送预约情况
     mail_host="smtp.163.com"
-    mail_sender="kelise_sj@163.com"
-    mail_license="YVJQHJDWXRKWNIEE"
-    mail_receivers="2652355330@qq.com"
+    mail_sender="xxxxx"#发送邮箱
+    mail_license="xxxxxxx"#客户端授权码
+    mail_receivers="xxxxx"#接收邮箱
     mm=MIMEMultipart('related')
     subject_content="预约通知"
-    mm["From"] = "sender_name<kelise_sj@163.com>"
+    mm["From"] = "sender_name<xxxxx>"#接收邮箱
 # 设置接受者,注意严格遵守格式,里面邮箱为接受者邮箱
-    mm["To"] = "receiver_1_name<2652355330@qq.com>"
+    mm["To"] = "receiver_1_name<xxxxxx>"#接收邮箱
 # 设置邮件主题
     mm["Subject"] = Header(subject_content,'utf-8')
     msg_text=MIMEText(msg,"plain","utf-8")
@@ -47,7 +47,7 @@ def get_seatInfo():
     day=time[0]
     startTime=time[1].split('.')[0]
     startTime=startTime[0:-3]#不需要秒，删去秒
-    url2="http://125.219.33.206/api.php/spaces_old?area=22&day="
+    url2="http://xxxxx/api.php/spaces_old?area=22&day="
     url2=url2+day+'&endTime=22:30&segment&startTime='+startTime#获取座位信息地址
     s=requests.get(url=url2).text#获取坐位信息
     s=json.loads(s)
@@ -68,10 +68,10 @@ def main():
     if get_freeSeat():
         try:
             access_Token=login()
-            url3="http://125.219.33.206/api.php/spaces/"+str(my_seat['id'])+"/book"#预约地址
+            url3="http://xxxxx/api.php/spaces/"+str(my_seat['id'])+"/book"#预约地址
             data2={
 "access_token":access_Token,
-"userid":"1811010039",
+"userid":"xxxxxx",
 "type":"1",
 "id":str(my_seat["id"]),
 "segment":"1383121"
